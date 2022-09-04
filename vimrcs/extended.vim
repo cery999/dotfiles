@@ -218,7 +218,7 @@ elseif &filetype == 'java'
 elseif &filetype == 'sh'
     exec "!time bash %"
 elseif &filetype == 'python'
-    exec "!time python3 %"
+    exec "!time python3.6 %"
 elseif &filetype == 'html'
     exec "!google-chrome % &"
 elseif &filetype == 'go'
@@ -226,5 +226,29 @@ elseif &filetype == 'go'
     exec "!time go run %"
 elseif &filetype == 'matlab'
     exec "!time octave %"
+elseif &filetype == 'mlir'
+    exec "!time ninja -C ~/cmake_build hlir opt_main && time ~/cmake_build/bin/opt_main $(grep -o -E \"opt_main.*\\|\" % | sed -e 's/opt_main//' -e 's/\\%s.*//' ) %"
+endif
+endfunc
+
+map <F4> :call CompileOnly()<CR>
+imap <F4> <Esc>:call CompileOnly()<CR>
+vmap <F4> <Esc>:call CompileOnly()<CR>
+
+func! CompileOnly()
+exec "w"
+if &filetype == "python"
+    exec "!time ninja -C ~/cmake_build hlir whl_TopsInference_pypi_3.6 && pip3.6 install /home/cery.zhai/cmake_build/sdk/lib/TopsInference/Python/python3.6/TopsInference-123.456-py3.6-none-any.internal.whl --force-reinstall"
+endif
+endfunc
+
+map <F6> :call CompileRunOldPath()<CR>
+imap <F6> <Esc>:call CompileRunOldPath()<CR>
+vmap <F6> <Esc>:call CompileRunOldPath()<CR>
+
+func! CompileRunOldPath()
+exec "w"
+if &filetype == 'mlir'
+    exec "!time ninja -C ~/cmake_build hlir TopsInference TopsInference_opt_main && time ~/cmake_build/bin/TopsInference_opt_main $(grep -o -E \"opt_main.*\\|\" % | sed -e 's/opt_main//' -e 's/\\%s.*//' ) %"
 endif
 endfunc

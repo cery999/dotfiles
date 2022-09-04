@@ -31,7 +31,10 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
+set nocompatible
 set history=500
+set clipboard=unnamed
+set number
 
 " Enable filetype plugins
 filetype plugin on

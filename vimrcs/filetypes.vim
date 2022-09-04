@@ -72,6 +72,7 @@ endif
 " => Twig section
 """"""""""""""""""""""""""""""
 autocmd BufRead *.twig set syntax=html filetype=html
+autocmd BufRead *.mlir set syntax=cpp filetype=mlir
 
 
 """"""""""""""""""""""""""""""
