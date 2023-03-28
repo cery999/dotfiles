@@ -252,3 +252,16 @@ if &filetype == 'mlir'
     exec "!time ninja -C ~/cmake_build hlir TopsInference TopsInference_opt_main && time ~/cmake_build/bin/TopsInference_opt_main $(grep -o -E \"opt_main.*\\|\" % | sed -e 's/opt_main//' -e 's/\\%s.*//' ) %"
 endif
 endfunc
+
+map <F10> :call RunOnly()<CR>
+imap <F10> <Esc>:call RunOnly()<CR>
+vmap <F10> <Esc>:call RunOnly()<CR>
+
+func! RunOnly()
+exec "w"
+if &filetype == "mlir"
+    exec "!time ~/cmake_build/bin/opt_main $(grep -o -E \"opt_main.*\\|\" % | sed -e 's/opt_main//' -e 's/\\%s.*//' ) %"
+endif
+endfunc
+
+

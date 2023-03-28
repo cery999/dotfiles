@@ -1,4 +1,8 @@
 """"""""""""""""""""""""""""""
+" => CPP section
+""""""""""""""""""""""""""""""
+au FileType cpp inoremap <buffer> $p auto dump_vec = [](std::vector<int64_t> vec){ for(auto v:vec){std::cout << v << ",";}  std::cout << std::endl;};
+""""""""""""""""""""""""""""""
 " => Python section
 """"""""""""""""""""""""""""""
 let python_highlight_all = 1
